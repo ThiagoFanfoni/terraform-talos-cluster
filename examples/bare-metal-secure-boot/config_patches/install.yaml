@@ -1,0 +1,9 @@
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+installer:
+  image: ${image}
+provisioning:
+  diskSelector:
+    match: disk.dev_path == "/dev/nvme0n1"
+  wipe: true

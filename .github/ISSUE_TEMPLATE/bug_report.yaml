@@ -1,0 +1,89 @@
+name: Bug report
+description: Report unexpected behavior in the Terraform Talos Cluster module.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Search existing issues before submitting a new report.
+        Share only sanitized configuration and logs. Do not attach Terraform state,
+        private keys, tokens, kubeconfig, talosconfig, or generated machine secrets.
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+      description: Describe what you expected and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: |
+        Include the module tag or commit and the installed Talos provider version,
+        not just version constraints. Terraform version output can help.
+        Use "not applicable" for components unrelated to the issue.
+      placeholder: |
+        Module tag or commit:
+        Terraform CLI:
+        siderolabs/talos provider:
+        Talos Linux running on the nodes:
+        Module talos_version input:
+        Kubernetes:
+        Local OS and architecture:
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Cluster environment
+      description: |
+        Describe bare metal, virtualization, or cloud platform; control-plane and
+        worker counts; and relevant settings such as Secure Boot or encryption.
+        For tooling-only issues, describe the local or CI environment instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Minimal configuration
+      description: |
+        Include a small module call that reproduces the problem. Include relevant
+        YAML patches in their original order, using additional Markdown code blocks
+        as needed. Replace secrets and identifying details with placeholders.
+        For tooling-only issues, provide the relevant configuration instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: |
+        List the commands and steps that trigger the issue. State whether this is
+        a new installation or an upgrade, and include the previous versions if known.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant error output
+      description: |
+        Paste the sanitized error and relevant surrounding output as text.
+        Review logs for secrets before sharing; avoid full debug dumps or state files.
+      render: text
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Include related issues, a known working version, or a workaround if available.

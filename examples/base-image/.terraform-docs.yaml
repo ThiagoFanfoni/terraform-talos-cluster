@@ -1,0 +1,23 @@
+formatter: markdown table
+
+content: |-
+  <!-- markdownlint-disable -->
+  {{ .Content }}
+  <!-- markdownlint-enable -->
+
+output:
+  file: README.md
+  mode: inject
+
+recursive:
+  enabled: true
+  path: .
+  include-main: true
+
+settings:
+  escape: true
+  hide-empty: true
+
+sort:
+  enabled: true
+  by: name

@@ -1,0 +1,7 @@
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  useNTS: false
+  servers:
+    - 192.168.65.1
