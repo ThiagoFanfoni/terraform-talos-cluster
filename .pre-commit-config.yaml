@@ -14,13 +14,15 @@ repos:
       - id: detect-private-key
       - id: destroyed-symlinks
       - id: end-of-file-fixer
+        # Preserve Cocogitto's generated changelog formatting.
+        exclude: ^CHANGELOG[.]md$
       - id: fix-byte-order-marker
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: trailing-whitespace
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.109.1
+    rev: v1.109.2
     hooks:
       - id: terraform_fmt
       - id: terraform_tflint
@@ -46,7 +48,7 @@ repos:
         args: ["."]
 
   - repo: https://github.com/bridgecrewio/checkov
-    rev: 3.3.20
+    rev: 3.3.26
     hooks:
       - id: checkov
 
@@ -54,6 +56,7 @@ repos:
     rev: v0.23.3
     hooks:
       - id: markdownlint-cli2
+        exclude: ^CHANGELOG[.]md$
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
