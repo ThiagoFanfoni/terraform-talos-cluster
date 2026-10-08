@@ -154,12 +154,6 @@ terraform output -raw kubeconfig > ~/.kube/config
 <!-- markdownlint-enable -->
 <!-- END_TF_DOCS -->
 
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) for development setup, checks,
-tests, and commit conventions. Report problems using the
-[bug-report form](https://github.com/ThiagoFanfoni/terraform-talos-cluster/issues/new?template=bug_report.yaml).
-
 ## Trademark notice
 
 Terraform is a trademark of HashiCorp, Inc. Talos Linux is a trademark of
