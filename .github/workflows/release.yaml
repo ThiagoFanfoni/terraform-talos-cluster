@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the latest main branch and tags
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install Cocogitto
+        uses: cocogitto/cocogitto-action@9a9fe03b31c47444290c0d7f9b1ee1b44ee13f20 # v4.1.0
+        with:
+          command: --version
+          git-user: github-actions[bot]
+          git-user-email: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Check commits and update changelog and version
+        id: release
+        run: |
+          if git describe --tags --match 'v[0-9]*' --abbrev=0 > /dev/null 2>&1; then
+            cog check --from-latest-tag
+          else
+            cog check
+          fi
+          cog bump --auto
+
+          # A no-op bump has no tag at HEAD, unless retrying a previous release.
+          tag=$(git describe --tags --exact-match --match 'v[0-9]*' HEAD 2>/dev/null || true)
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "No release needed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Push changelog commit and release tag
+        if: steps.release.outputs.tag != ''
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        # Reject both updates if main has advanced; rerun against the latest main.
+        run: git push --atomic origin HEAD:refs/heads/main "refs/tags/$TAG"
+
+      - name: Publish GitHub release
+        if: steps.release.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          cog changelog --at "$TAG" --template full_hash > "$RUNNER_TEMP/release-notes.md"
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Release $TAG already exists." >> "$GITHUB_STEP_SUMMARY"
+          else
+            gh release create "$TAG" --verify-tag --title "$TAG" \
+              --notes-file "$RUNNER_TEMP/release-notes.md"
+            echo "Published release $TAG." >> "$GITHUB_STEP_SUMMARY"
+          fi

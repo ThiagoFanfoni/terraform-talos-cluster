@@ -1,0 +1,10 @@
+ignore_merge_commits = true
+branch_whitelist = ["main"]
+tag_prefix = "v"
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+owner = "ThiagoFanfoni"
+repository = "terraform-talos-cluster"
