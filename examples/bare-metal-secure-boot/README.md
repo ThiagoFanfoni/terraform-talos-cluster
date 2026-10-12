@@ -13,6 +13,34 @@ configuration.
 > before applying. The installation patch targets `/dev/nvme0n1` with
 > `wipe: true`, which erases the disk on every configured node.
 
+## Identify disks and network interfaces
+
+Before applying the configuration, use `talosctl` to inspect each node while it
+is in maintenance mode. Replace `192.168.65.10` with the node's current IP
+address, rather than the virtual IP (VIP), and repeat for the other nodes:
+
+```sh
+# List disks to identify the installation target.
+talosctl get disks --insecure --nodes 192.168.65.10
+
+# List network interfaces and their link status.
+talosctl get links --insecure --nodes 192.168.65.10
+```
+
+Use the disk information to update `provisioning.diskSelector.match` in
+[`config_patches/install.yaml`](config_patches/install.yaml). The installation
+patch is shared by all nodes, so confirm that its selector matches the intended
+disk on each node.
+
+Use the interface name in the `ID` column to update `link` in
+[`config_patches/vip.yaml`](config_patches/vip.yaml) for the control plane.
+Set `name` in that patch to the intended VIP and use the same address in
+`cluster_endpoint` in [`main.tf`](main.tf).
+
+The `--insecure` flag accesses the maintenance API before a machine configuration
+has been applied. See the [Talos CLI reference](https://docs.siderolabs.com/talos/latest/reference/cli)
+for command details.
+
 <!-- BEGIN_TF_DOCS -->
 <!-- markdownlint-disable -->
 
