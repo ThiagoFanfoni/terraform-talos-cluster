@@ -49,7 +49,7 @@ for command details.
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_base_image"></a> [base\_image](#module\_base\_image) | ../base-image/ | n/a |
+| <a name="module_base_image"></a> [base\_image](#module\_base\_image) | ../base_image/ | n/a |
 | <a name="module_example"></a> [example](#module\_example) | ../.. | n/a |
 
 ## Outputs

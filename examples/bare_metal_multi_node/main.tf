@@ -4,21 +4,21 @@ locals {
   cluster_name       = "example"
 
   config_patches = tolist([
-    templatefile("${path.module}/config_patches/install.yaml", { image = module.base_image.secure_boot }),
-    file("${path.module}/config_patches/disk_encryption.yaml"),
-    file("${path.module}/config_patches/ntp.yaml")
+    templatefile("../config_patches/install.yaml", { image = module.base_image.secure_boot }),
+    file("../config_patches/disk_encryption.yaml"),
+    file("../config_patches/ntp.yaml")
   ])
 
   controlplane_config_patches = concat(
     local.config_patches,
     [
-      file("${path.module}/config_patches/vip.yaml")
+      file("../config_patches/vip.yaml")
     ]
   )
 }
 
 module "base_image" {
-  source        = "../base-image/"
+  source        = "../base_image/"
   talos_version = local.talos_version
 }
 
