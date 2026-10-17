@@ -9,7 +9,7 @@ Use the same `talos_version` for this module and the cluster configuration:
 
 ```hcl
 module "base_image" {
-  source        = "../base-image"
+  source        = "../base_image"
   talos_version = local.talos_version
 }
 ```
@@ -17,7 +17,8 @@ module "base_image" {
 Choose the image output appropriate for your example. For Secure Boot, use
 `module.base_image.secure_boot` as the installer image in the node configuration
 and installation patches. See the
-[bare-metal Secure Boot example](../bare-metal-secure-boot/README.md) for a complete
+[multi-node example](../bare_metal_multi_node/README.md) or
+[single-node example](../bare_metal_single_node/README.md) for a complete
 configuration.
 
 <!-- BEGIN_TF_DOCS -->

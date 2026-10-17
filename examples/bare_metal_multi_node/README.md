@@ -1,17 +1,25 @@
-# Bare-metal cluster example
+# Bare-metal multi-node example
 
-This example configures a Talos Linux cluster with one control plane and three
-workers. It creates an Image Factory schematic with compatible system
-extensions, obtains its Secure Boot installer image, and supplies that image to
-the module through a shared installation patch.
+This example configures a Talos Linux cluster with one control-plane node and
+three workers. It uses the [base-image module](../base_image/README.md) to obtain
+a Secure Boot installer image with compatible system extensions. Shared patches
+configure installation, TPM-backed disk encryption, and NTP. A control-plane
+patch configures the virtual IP (VIP) used by the Kubernetes API endpoint.
+
+For a cluster that runs workloads on a single control-plane node, see the
+[single-node example](../bare_metal_single_node/README.md).
 
 The nodes must already be booted into Talos maintenance mode. Complete the
 [Secure Boot setup](../../README.md#secure-boot-setup) before applying this
 configuration.
 
-> Replace the example IP addresses, versions, extensions, and installation disk
-> before applying. The installation patch targets `/dev/nvme0n1` with
+> Replace the example node and NTP server IP addresses, VIP, network interface,
+> versions, extensions, and installation disk before applying. The installation
+> patch targets `/dev/nvme0n1` with
 > `wipe: true`, which erases the disk on every configured node.
+
+The patches in [`../config_patches`](../config_patches) are shared with the
+single-node example. Changes to those files affect both examples where used.
 
 ## Identify disks and network interfaces
 
@@ -28,14 +36,16 @@ talosctl get links --insecure --nodes 192.168.65.10
 ```
 
 Use the disk information to update `provisioning.diskSelector.match` in
-[`config_patches/install.yaml`](config_patches/install.yaml). The installation
+[`../config_patches/install.yaml`](../config_patches/install.yaml). The installation
 patch is shared by all nodes, so confirm that its selector matches the intended
 disk on each node.
 
 Use the interface name in the `ID` column to update `link` in
-[`config_patches/vip.yaml`](config_patches/vip.yaml) for the control plane.
+[`../config_patches/vip.yaml`](../config_patches/vip.yaml) for the control plane.
 Set `name` in that patch to the intended VIP and use the same address in
-`cluster_endpoint` in [`main.tf`](main.tf).
+`cluster_endpoint` in [`main.tf`](main.tf). The example uses
+`https://192.168.65.100:6443`; the control-plane node's own address is
+`192.168.65.10`.
 
 The `--insecure` flag accesses the maintenance API before a machine configuration
 has been applied. See the [Talos CLI reference](https://docs.siderolabs.com/talos/latest/reference/cli)

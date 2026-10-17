@@ -16,8 +16,9 @@ Terraform module for configuring and managing Talos Linux clusters.
 
 This module does not create Talos boot media or installer images. You must
 provide an installer image reference for each node. The
-[bare-metal Secure Boot example](./examples/bare-metal-secure-boot) shows how
-to obtain one from the Talos Image Factory.
+[bare-metal multi-node example](./examples/bare_metal_multi_node/README.md) and
+[single-node example](./examples/bare_metal_single_node/README.md) show how to
+obtain one from the Talos Image Factory.
 
 ## Secure Boot setup
 
