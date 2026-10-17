@@ -13,7 +13,7 @@ terraform {
 variable "talos_version" {
   type        = string
   description = "Talos Version"
-  default     = "v1.14.2"
+  default     = "v1.14.4"
 }
 
 data "talos_image_factory_extensions_versions" "this" {
