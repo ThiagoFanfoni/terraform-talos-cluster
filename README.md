@@ -110,7 +110,7 @@ terraform output -raw kubeconfig > ~/.kube/config
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_talos"></a> [talos](#provider\_talos) | 0.12.0 |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | ~> 0.12.0 |
 
 ## Resources
 

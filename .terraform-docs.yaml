@@ -17,6 +17,7 @@ recursive:
 settings:
   escape: true
   hide-empty: true
+  lockfile: false
 
 sort:
   enabled: true
