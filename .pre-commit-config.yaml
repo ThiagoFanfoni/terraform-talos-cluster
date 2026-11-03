@@ -22,7 +22,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.109.3
+    rev: v1.109.4
     hooks:
       - id: terraform_fmt
       - id: terraform_tflint
@@ -48,7 +48,7 @@ repos:
         args: ["."]
 
   - repo: https://github.com/bridgecrewio/checkov
-    rev: 3.4.0
+    rev: 3.4.3
     hooks:
       - id: checkov
 
@@ -59,7 +59,7 @@ repos:
         exclude: ^CHANGELOG[.]md$
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]

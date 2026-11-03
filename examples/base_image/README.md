@@ -29,12 +29,6 @@ configuration.
 | ---- | ------- |
 | <a name="requirement_talos"></a> [talos](#requirement\_talos) | ~> 0.12.0 |
 
-## Providers
-
-| Name | Version |
-| ---- | ------- |
-| <a name="provider_talos"></a> [talos](#provider\_talos) | ~> 0.12.0 |
-
 ## Resources
 
 | Name | Type |
