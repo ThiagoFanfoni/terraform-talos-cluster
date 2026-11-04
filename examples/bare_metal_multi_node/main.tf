@@ -1,5 +1,5 @@
 locals {
-  talos_version      = "v1.14.4"
+  talos_version      = "v1.14.5"
   kubernetes_version = "v1.37.1"
   cluster_name       = "example"
 

@@ -41,7 +41,7 @@ configuration.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_talos_version"></a> [talos\_version](#input\_talos\_version) | Talos Version | `string` | `"v1.14.4"` | no |
+| <a name="input_talos_version"></a> [talos\_version](#input\_talos\_version) | Talos Version | `string` | `"v1.14.5"` | no |
 
 ## Outputs
 
