@@ -81,5 +81,5 @@ jobs:
           git push --atomic origin HEAD:refs/heads/main "refs/tags/$tag"
           gh release view "$tag" > /dev/null 2>&1 && exit 0
 
-          notes=$(cog changelog --at "$tag" --template full_hash)
+          notes=$(cog changelog --at "$tag")
           gh release create "$tag" --verify-tag --title "$tag" --notes "$notes"
